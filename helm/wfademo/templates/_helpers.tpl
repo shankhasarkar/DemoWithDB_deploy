@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "wfademowithdb.name" -}}
+{{- define "wfademo.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "wfademowithdb.fullname" -}}
+{{- define "wfademo.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "wfademowithdb.chart" -}}
+{{- define "wfademo.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "wfademowithdb.labels" -}}
-helm.sh/chart: {{ include "wfademowithdb.chart" . }}
-{{ include "wfademowithdb.selectorLabels" . }}
+{{- define "wfademo.labels" -}}
+helm.sh/chart: {{ include "wfademo.chart" . }}
+{{ include "wfademo.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,17 +45,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "wfademowithdb.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "wfademowithdb.name" . }}
+{{- define "wfademo.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "wfademo.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "wfademowithdb.serviceAccountName" -}}
+{{- define "wfademo.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "wfademowithdb.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "wfademo.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
